@@ -101,5 +101,5 @@ const worker = new Worker('workerName', vcOptions, workerOptions);
 
 # BullJs
 
-This project uses BullJS, a Redis-backed queue library for Node.js, to handle job queueing and processing. For more information on BullJS, visit the [official documentation](https://github.com/OptimalBits/bull).
+This project uses BullJS, a Redis-backed queue library for Node.js, to handle job queueing and processing. For more information on BullJS, visit the [official documentation](https://github.com/OptimalBits/bull){:target="_blank"}.
 
