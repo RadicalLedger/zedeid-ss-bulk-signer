@@ -14,7 +14,7 @@ or
 yarn add https://github.com/RadicalLedger/zedeid-ss-bulk-signer
 ```
 
-Make sure you have a Redis server running, as BullMQ requires Redis for job queueing and processing. You can download and install Redis from [here](https://redis.io/downloads/) or use a cloud service like Redis Labs.
+Make sure you have a Redis server running, as BullMQ requires Redis for job queueing and processing. You can download and install Redis from <a href="https://redis.io/downloads/" target="_blank">here</a> or use a cloud service like Redis Labs.
 
 # Usage
 
@@ -101,5 +101,5 @@ const worker = new Worker('workerName', vcOptions, workerOptions);
 
 # BullJs
 
-This project uses BullJS, a Redis-backed queue library for Node.js, to handle job queueing and processing. For more information on BullJS, visit the [official documentation](https://github.com/OptimalBits/bull){:target="_blank"}.
+This project uses BullJS, a Redis-backed queue library for Node.js, to handle job queueing and processing. For more information on BullJS, visit the <a href="https://github.com/OptimalBits/bull" target="_blank">official documentation</a>.
 
