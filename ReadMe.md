@@ -1,6 +1,6 @@
 # Verifiable Credential Signing Worker
 
-This project implements a BullMQ worker for signing verifiable credentials (VCs) in a background job processing environment.
+This project implements a BullJs worker for signing verifiable credentials (VCs) in a background job processing environment.
 
 ## Installation
 
@@ -14,13 +14,13 @@ or
 yarn add https://github.com/RadicalLedger/zedeid-ss-bulk-signer
 ```
 
-Make sure you have a Redis server running, as BullMQ requires Redis for job queueing and processing. You can download and install Redis from <a href="https://redis.io/downloads/" target="_blank">here</a> or use a cloud service like Redis Labs.
+Make sure you have a Redis server running, as BullJs requires Redis for job queueing and processing. You can download and install Redis from <a href="https://redis.io/downloads/" target="_blank">here</a> or use a cloud service like Redis Labs.
 
 # Usage
 
-## Create BullMQ Queue
+## Create BullJS Queue
 
-By creating an instance of the Queue class with the specified queueName and connection options, you are initializing a BullMQ queue that can be used for processing tasks asynchronously.
+By creating an instance of the Queue class with the specified queueName and connection options, you are initializing a BullJs queue that can be used for processing tasks asynchronously.
 
 ```ts
 import { Queue } from 'zedeid-ss-bulk-signer';
@@ -52,13 +52,13 @@ await queue.add('sign-vc', jobData);
 
 ## Create Worker Instance
 
-This worker class handles the signing of verifiable credentials using BullMQ for job processing.
+This worker class handles the signing of verifiable credentials using BullJs for job processing.
 
 ### Constructor Parameters
 
 * `name`: The name of the queue.
 * `vcOptions`: The options for signing verifiable credentials. See below for details.
-* `workerOptions`: The options for the BullMQ worker.
+* `workerOptions`: The options for the BullJs worker.
 
 ### VCOptions
 
