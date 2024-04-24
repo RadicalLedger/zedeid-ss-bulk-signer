@@ -10,15 +10,15 @@ import { verifiable } from 'sd-vc-lib';
  * Represents a worker that handles the signing of verifiable credentials.
  */
 export default class Worker {
-    worker: BullMqWorker;
-    issuer: string;
-    holder: string | undefined;
-    issuanceDate: string;
-    suite: Suite;
-    didMethod: DIDMethods;
-    vcLoader: VerifiableCredentialLoader;
-    documentLoader: DocumentLoader;
-    callback: Callback;
+    private worker: BullMqWorker;
+    private issuer: string;
+    private holder: string | undefined;
+    private issuanceDate: string;
+    private suite: Suite;
+    private didMethod: DIDMethods;
+    private vcLoader: VerifiableCredentialLoader;
+    private documentLoader: DocumentLoader;
+    private callback: Callback;
 
     /**
      * Creates a new instance of the Worker class.
@@ -64,5 +64,13 @@ export default class Worker {
         } catch (error) {
             this.callback(error);
         }
+    }
+
+    /**
+     * Returns the BullMqWorker instance.
+     * @returns The BullMqWorker instance.
+     */
+    public get(): BullMqWorker {
+        return this.worker;
     }
 }
