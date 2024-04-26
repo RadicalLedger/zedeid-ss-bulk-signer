@@ -9,7 +9,9 @@ Install the required dependencies:
 ```bash
 npm install https://github.com/RadicalLedger/zedeid-ss-bulk-signer
 ```
+
 or
+
 ```bash
 yarn add https://github.com/RadicalLedger/zedeid-ss-bulk-signer
 ```
@@ -26,28 +28,28 @@ By creating an instance of the Queue class with the specified queueName and conn
 import { Queue } from 'zedeid-ss-bulk-signer';
 
 const config = {
-  // ... other configurations
-  redisConnection: {
-    host: 'localhost',
-    port: 6379,
-  },
-  queueName: 'vc-signing-queue', // Name for your queue
+    // ... other configurations
+    redisConnection: {
+        host: 'localhost',
+        port: 6379
+    },
+    queueName: 'vc-signing-queue' // Name for your queue
 };
 
 const queue = new Queue(config.queueName, {
-  connection: config.redisConnection,
+    connection: config.redisConnection
 });
 ```
 
 ## Add Jobs to the Queue
+
 ```ts
 const jobData = {
-  id: 123, // Unique identifier for the VC signing job
-  // Other data relevant to VC signing
+    id: 123 // Unique identifier for the VC signing job
+    // Other data relevant to VC signing
 };
 
 await queue.add('sign-vc', jobData);
-
 ```
 
 ## Create Worker Instance
@@ -56,20 +58,20 @@ This worker class handles the signing of verifiable credentials using BullJs for
 
 ### Constructor Parameters
 
-* `name`: The name of the queue.
-* `vcOptions`: The options for signing verifiable credentials. See below for details.
-* `workerOptions`: The options for the BullJs worker.
+-   `name`: The name of the queue.
+-   `vcOptions`: The options for signing verifiable credentials. See below for details.
+-   `workerOptions`: The options for the BullJs worker.
 
 ### VCOptions
 
-* `issuerPrivateKey`: The private key of the issuer for signing the verifiable credential.
-* `holderPublicKey`: The public key of the holder for encrypting the verifiable credential.
-* `issuanceDate`: (Optional) The issuance date of the verifiable credential. Defaults to the current date and time.
-* `suite`: The suite used for signing the verifiable credential.
-* `didMethod`: The DID method used for resolving DIDs.
-* `vcLoader`: The function used for loading the verifiable credential.
-* `documentLoader`: The document loader function for loading JSON-LD documents.
-* `callback`: The callback function to handle the result of signing the verifiable credential.
+-   `issuerPrivateKey`: The private key of the issuer for signing the verifiable credential.
+-   `holderPublicKey`: The public key of the holder for encrypting the verifiable credential.
+-   `issuanceDate`: (Optional) The issuance date of the verifiable credential. Defaults to the current date and time.
+-   `suite`: The suite used for signing the verifiable credential.
+-   `didMethod`: The DID method used for resolving DIDs.
+-   `vcLoader`: The function used for loading the verifiable credential.
+-   `documentLoader`: The document loader function for loading JSON-LD documents.
+-   `callback`: The callback function to handle the result of signing the verifiable credential.
 
 ```ts
 import { Worker } from 'zedeid-ss-bulk-signer';
@@ -102,4 +104,3 @@ const worker = new Worker('workerName', vcOptions, workerOptions);
 # BullJs
 
 This project uses BullJS, a Redis-backed queue library for Node.js, to handle job queueing and processing. For more information on BullJS, visit the <a href="https://github.com/OptimalBits/bull" target="_blank">official documentation</a>.
-

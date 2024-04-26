@@ -1,22 +1,18 @@
-import { DocumentLoader } from '@transmute/vc.js/dist/types/DocumentLoader';
-import { DIDMethods } from 'sd-vc-lib/dist/types/utils.type';
-import { Suite } from '@transmute/vc.js/dist/types/Suite';
-import { Callback, VerifiableCredentialLoader } from './types/declrations';
 import { VCOptions } from './types/interfaces';
 import { Worker as BullMqWorker, Job, WorkerOptions } from 'bullmq';
 /**
  * Represents a worker that handles the signing of verifiable credentials.
  */
 export default class Worker {
-    worker: BullMqWorker;
-    issuer: string;
-    holder: string | undefined;
-    issuanceDate: string;
-    suite: Suite;
-    didMethod: DIDMethods;
-    vcLoader: VerifiableCredentialLoader;
-    documentLoader: DocumentLoader;
-    callback: Callback;
+    private worker;
+    private issuer;
+    private holder;
+    private issuanceDate;
+    private suite;
+    private didMethod;
+    private vcLoader;
+    private documentLoader;
+    private callback;
     /**
      * Creates a new instance of the Worker class.
      * @param name - The name of the worker.
@@ -25,8 +21,13 @@ export default class Worker {
      */
     constructor(name: string, vcOptions: VCOptions, workerOptions?: WorkerOptions);
     /**
-     * Handles the processing of a job by signing the verifiable credential.
+     * Handles the processing of a job by signing the verifiable credentials.
      * @param job - The job to be processed.
      */
     workerHandler(job: Job): Promise<void>;
+    /**
+     * Returns the BullMqWorker instance.
+     * @returns The BullMqWorker instance.
+     */
+    get(): BullMqWorker;
 }

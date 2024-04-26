@@ -58,3 +58,18 @@ export interface VCOptions {
      */
     callback: Callback;
 }
+
+/**
+ * Represents the data passed to the callback function.
+ */
+export interface CallBackData {
+    /**
+     * The job object associated with the callback.
+     */
+    job: Job;
+
+    /**
+     * The array of verifiable credentials.
+     */
+    verifiableCredentials?: VerifiableCredential[] | unknown[];
+}

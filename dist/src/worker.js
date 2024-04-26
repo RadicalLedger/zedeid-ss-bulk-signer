@@ -1,7 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const bullmq_1 = require("bullmq");
-const sd_vc_lib_1 = require("sd-vc-lib");
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+const bullmq_1 = require('bullmq');
+const sd_vc_lib_1 = require('sd-vc-lib');
 /**
  * Represents a worker that handles the signing of verifiable credentials.
  */
@@ -26,26 +26,39 @@ class Worker {
         this.worker = new bullmq_1.Worker(name, this.workerHandler, workerOptions);
     }
     /**
-     * Handles the processing of a job by signing the verifiable credential.
+     * Handles the processing of a job by signing the verifiable credentials.
      * @param job - The job to be processed.
      */
     async workerHandler(job) {
         try {
-            const credential = await this.vcLoader(job);
-            const signedVerifiableCredential = await sd_vc_lib_1.verifiable.credential.create({
-                credential,
-                holderPublicKey: this.holder,
-                issuerPrivateKey: this.issuer,
-                issuanceDate: this.issuanceDate,
-                documentLoader: this.documentLoader,
-                didMethod: this.didMethod,
-                suite: this.suite
+            const credentials = await this.vcLoader(job);
+            const promises = credentials.map((credential) => {
+                return new Promise(async (resolve) => {
+                    const vc = await sd_vc_lib_1.verifiable.credential.create({
+                        credential,
+                        holderPublicKey: this.holder,
+                        issuerPrivateKey: this.issuer,
+                        issuanceDate: this.issuanceDate,
+                        documentLoader: this.documentLoader,
+                        didMethod: this.didMethod,
+                        suite: this.suite
+                    });
+                    resolve(vc);
+                });
             });
-            this.callback(null, signedVerifiableCredential);
-        }
-        catch (error) {
+            Promise.all(promises).then((results) => {
+                this.callback(null, results);
+            });
+        } catch (error) {
             this.callback(error);
         }
+    }
+    /**
+     * Returns the BullMqWorker instance.
+     * @returns The BullMqWorker instance.
+     */
+    get() {
+        return this.worker;
     }
 }
 exports.default = Worker;

@@ -1,8 +1,9 @@
 import { DocumentLoader } from '@transmute/vc.js/dist/types/DocumentLoader';
+import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
 import { DIDMethods } from 'sd-vc-lib/dist/types/utils.type';
 import { Suite } from '@transmute/vc.js/dist/types/Suite';
 import { Callback, VerifiableCredentialLoader } from './types/declrations';
-import { VCOptions } from './types/interfaces';
+import { Credential, VCOptions } from './types/interfaces';
 import { Worker as BullMqWorker, Job, WorkerOptions } from 'bullmq';
 import { verifiable } from 'sd-vc-lib';
 
@@ -43,24 +44,32 @@ export default class Worker {
     }
 
     /**
-     * Handles the processing of a job by signing the verifiable credential.
+     * Handles the processing of a job by signing the verifiable credentials.
      * @param job - The job to be processed.
      */
     public async workerHandler(job: Job) {
         try {
-            const credential = await this.vcLoader(job);
+            const credentials: Credential[] = await this.vcLoader(job);
 
-            const signedVerifiableCredential = await verifiable.credential.create({
-                credential,
-                holderPublicKey: this.holder,
-                issuerPrivateKey: this.issuer,
-                issuanceDate: this.issuanceDate,
-                documentLoader: this.documentLoader,
-                didMethod: this.didMethod,
-                suite: this.suite
+            const promises = credentials.map((credential: Credential) => {
+                return new Promise(async (resolve) => {
+                    const vc: VerifiableCredential = await verifiable.credential.create({
+                        credential,
+                        holderPublicKey: this.holder,
+                        issuerPrivateKey: this.issuer,
+                        issuanceDate: this.issuanceDate,
+                        documentLoader: this.documentLoader,
+                        didMethod: this.didMethod,
+                        suite: this.suite
+                    });
+
+                    resolve(vc);
+                });
             });
 
-            this.callback(null, signedVerifiableCredential);
+            Promise.all(promises).then((verifiableCredentials) => {
+                this.callback(null, { job, verifiableCredentials });
+            });
         } catch (error) {
             this.callback(error);
         }

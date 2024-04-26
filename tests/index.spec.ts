@@ -1,7 +1,7 @@
 import { Queue, Worker } from '../index';
 import config from './assets/config';
-import documentLoader from './assets/document-loader';
 import loader from './assets/loader';
+import documentLoader from './assets/document-loader';
 import callback from './assets/callback';
 
 describe('Bulk Verifiable Credentials Signing', () => {

@@ -1,15 +1,15 @@
-import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
+import { CallBackData } from '../../src/types/interfaces';
 
-export default function callback(error: any, vc?: VerifiableCredential) {
+export default function callback(error: any, data: CallBackData) {
     if (error) {
         // Handle error
     }
 
-    // Handle VerifiableCredential usage
-    if (vc) {
-        // Store the VerifiableCredential
+    // Handle Verifiable Credentials usage
+    if (data?.verifiableCredentials) {
+        // Store the Verifiable Credentials
         // ...
-        // Perform operations with the VerifiableCredential
+        // Perform operations with the Verifiable Credentials
         // ...
     }
 }
