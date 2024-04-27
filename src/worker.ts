@@ -71,9 +71,9 @@ export default class Worker {
                 });
             });
 
-            Promise.all(promises).then((results) => {
-                this.callback(null, { job, results });
-            });
+            const results = await Promise.all(promises);
+
+            this.callback(null, { job, results });
         } catch (error) {
             this.callback(error);
         }
