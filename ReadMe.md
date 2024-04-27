@@ -69,7 +69,7 @@ This worker class handles the signing of verifiable credentials using BullJs for
 -   `issuanceDate`: (Optional) The issuance date of the verifiable credential. Defaults to the current date and time.
 -   `suite`: The suite used for signing the verifiable credential.
 -   `didMethod`: The DID method used for resolving DIDs.
--   `vcLoader`: The function used for loading the verifiable credential.
+-   `vcLoader`: The function used for loading the verifiable credentials.
 -   `documentLoader`: The document loader function for loading JSON-LD documents.
 -   `callback`: The callback function to handle the result of signing the verifiable credential.
 
@@ -84,7 +84,7 @@ const vcOptions = {
   didMethod: '...',        // DID method
   loader: async (job) => { ... }, // Function to load VC for signing
   documentLoader: async (uri) => { ... }, // Function to load referenced documents
-  callback: (err, vc) => { ... }, // Callback for signed VC or errors
+  callback: (err, data) => { ... }, // Callback for signed VC or errors
 };
 
 // Define the options for the worker
