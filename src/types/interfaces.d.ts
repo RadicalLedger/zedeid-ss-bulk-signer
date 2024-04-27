@@ -73,3 +73,33 @@ export interface CallBackData {
      */
     results?: any[];
 }
+
+/**
+ * Represents the data passed to the callback function.
+ */
+export interface CallBackData {
+    /**
+     * The job object associated with the callback.
+     */
+    job: Job;
+
+    /**
+     * The array of results of verifiable credentials signing.
+     */
+    results?: any[];
+}
+
+/**
+ * Represents the data for the VCLoader.
+ */
+export interface VCLoaderData {
+    /**
+     * The data object.
+     */
+    data: any;
+
+    /**
+     * The verifiable credential object.
+     */
+    credential: Credential;
+}

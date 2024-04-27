@@ -31,12 +31,12 @@ class Worker {
      */
     async workerHandler(job) {
         try {
-            const credentials = await this.vcLoader(job);
-            const promises = credentials.map((credential) => {
+            const vcData = await this.vcLoader(job);
+            const promises = vcData.map(({ credential, data }) => {
                 return new Promise(async (resolve) => {
                     try {
                         const vc = await sd_vc_lib_1.verifiable.credential.create({
-                            credential,
+                            credential: credential,
                             holderPublicKey: this.holder,
                             issuerPrivateKey: this.issuer,
                             issuanceDate: this.issuanceDate,
@@ -44,7 +44,7 @@ class Worker {
                             didMethod: this.didMethod,
                             suite: this.suite
                         });
-                        resolve(vc);
+                        resolve({ data, vc });
                     } catch (error) {
                         resolve({ error });
                     }

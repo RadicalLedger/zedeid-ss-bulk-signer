@@ -3,7 +3,7 @@ import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCred
 import { DIDMethods } from 'sd-vc-lib/dist/types/utils.type';
 import { Suite } from '@transmute/vc.js/dist/types/Suite';
 import { Callback, VerifiableCredentialLoader } from './types/declrations';
-import { Credential, VCOptions } from './types/interfaces';
+import { VCLoaderData, VCOptions } from './types/interfaces';
 import { Worker as BullMqWorker, Job, WorkerOptions } from 'bullmq';
 import { verifiable } from 'sd-vc-lib';
 
@@ -49,13 +49,13 @@ export default class Worker {
      */
     public async workerHandler(job: Job) {
         try {
-            const credentials: Credential[] = await this.vcLoader(job);
+            const vcData: VCLoaderData[] = await this.vcLoader(job);
 
-            const promises = credentials.map((credential: Credential) => {
+            const promises = vcData.map(({ credential, data }: VCLoaderData) => {
                 return new Promise(async (resolve) => {
                     try {
                         const vc: VerifiableCredential = await verifiable.credential.create({
-                            credential,
+                            credential: credential,
                             holderPublicKey: this.holder,
                             issuerPrivateKey: this.issuer,
                             issuanceDate: this.issuanceDate,
@@ -64,7 +64,7 @@ export default class Worker {
                             suite: this.suite
                         });
 
-                        resolve(vc);
+                        resolve({ data, vc });
                     } catch (error) {
                         resolve({ error });
                     }
