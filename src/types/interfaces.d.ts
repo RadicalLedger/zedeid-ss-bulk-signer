@@ -69,7 +69,7 @@ export interface CallBackData {
     job: Job;
 
     /**
-     * The array of verifiable credentials.
+     * The array of results of verifiable credentials signing.
      */
-    verifiableCredentials?: VerifiableCredential[] | unknown[];
+    results?: any[];
 }

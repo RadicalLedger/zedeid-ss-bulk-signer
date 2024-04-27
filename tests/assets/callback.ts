@@ -6,10 +6,17 @@ export default function callback(error: any, data: CallBackData) {
     }
 
     // Handle Verifiable Credentials usage
-    if (data?.verifiableCredentials) {
-        // Store the Verifiable Credentials
-        // ...
-        // Perform operations with the Verifiable Credentials
-        // ...
+    if (data?.results) {
+        for (const result of data.results) {
+            if (result?.error) {
+                // Handle error
+            } else {
+                const vc = result;
+                // Store the Verifiable Credentials
+                // ...
+                // Perform operations with the Verifiable Credentials
+                // ...
+            }
+        }
     }
 }

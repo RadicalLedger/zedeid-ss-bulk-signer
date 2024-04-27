@@ -53,22 +53,26 @@ export default class Worker {
 
             const promises = credentials.map((credential: Credential) => {
                 return new Promise(async (resolve) => {
-                    const vc: VerifiableCredential = await verifiable.credential.create({
-                        credential,
-                        holderPublicKey: this.holder,
-                        issuerPrivateKey: this.issuer,
-                        issuanceDate: this.issuanceDate,
-                        documentLoader: this.documentLoader,
-                        didMethod: this.didMethod,
-                        suite: this.suite
-                    });
+                    try {
+                        const vc: VerifiableCredential = await verifiable.credential.create({
+                            credential,
+                            holderPublicKey: this.holder,
+                            issuerPrivateKey: this.issuer,
+                            issuanceDate: this.issuanceDate,
+                            documentLoader: this.documentLoader,
+                            didMethod: this.didMethod,
+                            suite: this.suite
+                        });
 
-                    resolve(vc);
+                        resolve(vc);
+                    } catch (error) {
+                        resolve({ error });
+                    }
                 });
             });
 
-            Promise.all(promises).then((verifiableCredentials) => {
-                this.callback(null, { job, verifiableCredentials });
+            Promise.all(promises).then((results) => {
+                this.callback(null, { job, results });
             });
         } catch (error) {
             this.callback(error);
