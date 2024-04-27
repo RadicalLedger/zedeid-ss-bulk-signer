@@ -34,20 +34,24 @@ class Worker {
             const credentials = await this.vcLoader(job);
             const promises = credentials.map((credential) => {
                 return new Promise(async (resolve) => {
-                    const vc = await sd_vc_lib_1.verifiable.credential.create({
-                        credential,
-                        holderPublicKey: this.holder,
-                        issuerPrivateKey: this.issuer,
-                        issuanceDate: this.issuanceDate,
-                        documentLoader: this.documentLoader,
-                        didMethod: this.didMethod,
-                        suite: this.suite
-                    });
-                    resolve(vc);
+                    try {
+                        const vc = await sd_vc_lib_1.verifiable.credential.create({
+                            credential,
+                            holderPublicKey: this.holder,
+                            issuerPrivateKey: this.issuer,
+                            issuanceDate: this.issuanceDate,
+                            documentLoader: this.documentLoader,
+                            didMethod: this.didMethod,
+                            suite: this.suite
+                        });
+                        resolve(vc);
+                    } catch (error) {
+                        resolve({ error });
+                    }
                 });
             });
             Promise.all(promises).then((results) => {
-                this.callback(null, results);
+                this.callback(null, { job, results });
             });
         } catch (error) {
             this.callback(error);

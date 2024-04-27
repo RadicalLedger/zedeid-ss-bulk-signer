@@ -1,5 +1,5 @@
 import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
-import { Credential } from 'interfaces';
+import { CallBackData, Credential } from 'interfaces';
 
 /**
  * A function type for loading verifiable credentials.
@@ -11,9 +11,6 @@ export declare type VerifiableCredentialLoader = (job: Job) => Promise<Credentia
 /**
  * A callback function type for handling errors and verifiable credentials.
  * @param error - The error object, if any.
- * @param vc - The signed verifiable credential, if available.
+ * @param data - The callback data containing the error and signed verifiable credential, if available.
  */
-export declare type Callback = (
-    error: any,
-    verifiableCredentials?: VerifiableCredential[] | unknown[]
-) => void;
+export declare type Callback = (error: any, data?: CallBackData) => void;
