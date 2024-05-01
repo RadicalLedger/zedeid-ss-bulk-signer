@@ -1,5 +1,5 @@
 import { Job } from 'bullmq';
-import { Callback } from 'declrations';
+import { Callback, HolderPublicKeyLoader, IssuerPrivateKeyLoader } from 'declrations';
 
 /**
  * Represents a credential object.
@@ -31,12 +31,12 @@ export interface VCOptions {
     /**
      * The private key of the issuer.
      */
-    issuerPrivateKey: string;
+    issuerPrivateKey: IssuerPrivateKeyLoader;
 
     /**
      * The public key of the holder.
      */
-    holderPublicKey?: string;
+    holderPublicKey?: HolderPublicKeyLoader;
 
     /**
      * The cryptographic suite used for signing the verifiable credential.

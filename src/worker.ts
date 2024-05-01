@@ -2,7 +2,12 @@ import { DocumentLoader } from '@transmute/vc.js/dist/types/DocumentLoader';
 import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
 import { DIDMethods } from 'sd-vc-lib/dist/types/utils.type';
 import { Suite } from '@transmute/vc.js/dist/types/Suite';
-import { Callback, VerifiableCredentialLoader } from './types/declrations';
+import {
+    Callback,
+    HolderPublicKeyLoader,
+    IssuerPrivateKeyLoader,
+    VerifiableCredentialLoader
+} from './types/declrations';
 import { VCLoaderData, VCOptions } from './types/interfaces';
 import { Worker as BullMqWorker, Job, WorkerOptions } from 'bullmq';
 import { verifiable } from 'sd-vc-lib';
@@ -12,8 +17,8 @@ import { verifiable } from 'sd-vc-lib';
  */
 export default class Worker {
     private worker: BullMqWorker;
-    private issuer: string;
-    private holder: string | undefined;
+    private issuer: IssuerPrivateKeyLoader;
+    private holder: HolderPublicKeyLoader | undefined;
     private issuanceDate: string;
     private suite: Suite;
     private didMethod: DIDMethods;
@@ -54,10 +59,13 @@ export default class Worker {
             const promises = vcData.map(({ credential, data }: VCLoaderData) => {
                 return new Promise(async (resolve) => {
                     try {
+                        let issuerPrivateKey = await this.issuer(job);
+                        let holderPublicKey = this.holder && (await this.holder(job));
+
                         const vc: VerifiableCredential = await verifiable.credential.create({
                             credential: credential,
-                            holderPublicKey: this.holder,
-                            issuerPrivateKey: this.issuer,
+                            holderPublicKey,
+                            issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
                             documentLoader: this.documentLoader,
                             didMethod: this.didMethod,

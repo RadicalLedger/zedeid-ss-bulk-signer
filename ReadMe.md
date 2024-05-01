@@ -78,8 +78,8 @@ import { Worker } from 'zedeid-ss-bulk-signer';
 
 // Define the options for signing verifiable credentials
 const vcOptions = {
-  issuerPrivateKey: '...', // Issuer's private key
-  holderPublicKey: '...',  // (Optional) Holder's public key
+  issuerPrivateKey: async (job) => { ... }, // Issuer's private key
+  holderPublicKey: async (job) => { ... },  // (Optional) Holder's public key
   suite: '...',            // Cryptographic suite
   didMethod: '...',        // DID method
   loader: async (job) => { ... }, // Function to load VC for signing
