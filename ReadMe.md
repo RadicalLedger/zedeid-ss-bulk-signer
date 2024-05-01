@@ -64,8 +64,8 @@ This worker class handles the signing of verifiable credentials using BullJs for
 
 ### VCOptions
 
--   `issuerPrivateKey`: The private key of the issuer for signing the verifiable credential.
--   `holderPublicKey`: The public key of the holder for encrypting the verifiable credential.
+-   `issuerPrivateKeyLoader`: The private key of the issuer for signing the verifiable credential.
+-   `holderPublicKeyLoader`: The public key of the holder for encrypting the verifiable credential.
 -   `issuanceDate`: (Optional) The issuance date of the verifiable credential. Defaults to the current date and time.
 -   `suite`: The suite used for signing the verifiable credential.
 -   `didMethod`: The DID method used for resolving DIDs.
@@ -78,8 +78,8 @@ import { Worker } from 'zedeid-ss-bulk-signer';
 
 // Define the options for signing verifiable credentials
 const vcOptions = {
-  issuerPrivateKey: async (job) => { ... }, // Issuer's private key
-  holderPublicKey: async (job) => { ... },  // (Optional) Holder's public key
+  issuerPrivateKeyLoader: async (job) => { ... }, // Issuer's private key
+  holderPublicKeyLoader: async (job) => { ... },  // (Optional) Holder's public key
   suite: '...',            // Cryptographic suite
   didMethod: '...',        // DID method
   loader: async (job) => { ... }, // Function to load VC for signing

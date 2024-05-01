@@ -17,8 +17,8 @@ import { verifiable } from 'sd-vc-lib';
  */
 export default class Worker {
     private worker: BullMqWorker;
-    private issuer: IssuerPrivateKeyLoader;
-    private holder: HolderPublicKeyLoader | undefined;
+    private issuerLoader: IssuerPrivateKeyLoader;
+    private holderLoader: HolderPublicKeyLoader | undefined;
     private issuanceDate: string;
     private suite: Suite;
     private didMethod: DIDMethods;
@@ -33,8 +33,8 @@ export default class Worker {
      * @param workerOptions - The options for the worker.
      */
     constructor(name: string, vcOptions: VCOptions, workerOptions?: WorkerOptions) {
-        this.issuer = vcOptions.issuerPrivateKey;
-        this.holder = vcOptions.holderPublicKey;
+        this.issuerLoader = vcOptions.issuerPrivateKeyLoader;
+        this.holderLoader = vcOptions.holderPublicKeyLoader;
         this.issuanceDate = vcOptions.issuanceDate || new Date().toISOString();
         this.suite = vcOptions.suite;
         this.didMethod = vcOptions.didMethod;
@@ -59,8 +59,8 @@ export default class Worker {
             const promises = vcData.map(({ credential, data }: VCLoaderData) => {
                 return new Promise(async (resolve) => {
                     try {
-                        let issuerPrivateKey = await this.issuer(job);
-                        let holderPublicKey = this.holder && (await this.holder(job));
+                        let issuerPrivateKey = await this.issuerLoader(job);
+                        let holderPublicKey = this.holderLoader && (await this.holderLoader(job));
 
                         const vc: VerifiableCredential = await verifiable.credential.create({
                             credential: credential,

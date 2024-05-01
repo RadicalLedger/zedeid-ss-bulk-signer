@@ -13,14 +13,14 @@ export declare type VerifiableCredentialLoader = (job: Job) => Promise<VCLoaderD
  * @param job - The job object containing information about the private key to be loaded.
  * @returns A promise that resolves to the loaded private key.
  */
-export declare type IssuerPrivateKeyLoader = (job: Job) => Promise<string>;
+export declare type IssuerPrivateKeyLoader = (job?: Job) => Promise<string>;
 
 /**
  * A function type for loading holder public keys.
  * @param job - The job object containing information about the public key to be loaded.
  * @returns A promise that resolves to the loaded public key.
  */
-export declare type HolderPublicKeyLoader = (job: Job) => Promise<string>;
+export declare type HolderPublicKeyLoader = (job?: Job) => Promise<string>;
 
 /**
  * A callback function type for handling errors and verifiable credentials.

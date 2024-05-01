@@ -3,6 +3,8 @@ import config from './assets/config';
 import loader from './assets/loader';
 import documentLoader from './assets/document-loader';
 import callback from './assets/callback';
+import issuerPrivateKeyLoader from './assets/issuer-loader';
+import holderPublicKeyLoader from './assets/holder-loader';
 
 describe('Bulk Verifiable Credentials Signing', () => {
     it('Create a Queue', () => {
@@ -27,8 +29,8 @@ describe('Bulk Verifiable Credentials Signing', () => {
                 loader,
                 documentLoader,
                 callback,
-                issuerPrivateKey: config.issuerPrivateKey,
-                holderPublicKey: config.holderPublicKey
+                issuerPrivateKeyLoader,
+                holderPublicKeyLoader
             },
             {
                 connection: config.redisConnection

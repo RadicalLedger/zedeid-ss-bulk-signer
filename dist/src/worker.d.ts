@@ -5,8 +5,8 @@ import { Worker as BullMqWorker, Job, WorkerOptions } from 'bullmq';
  */
 export default class Worker {
     private worker;
-    private issuer;
-    private holder;
+    private issuerLoader;
+    private holderLoader;
     private issuanceDate;
     private suite;
     private didMethod;

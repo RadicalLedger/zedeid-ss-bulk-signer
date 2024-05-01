@@ -13,8 +13,8 @@ class Worker {
      * @param workerOptions - The options for the worker.
      */
     constructor(name, vcOptions, workerOptions) {
-        this.issuer = vcOptions.issuerPrivateKey;
-        this.holder = vcOptions.holderPublicKey;
+        this.issuerLoader = vcOptions.issuerPrivateKeyLoader;
+        this.holderLoader = vcOptions.holderPublicKeyLoader;
         this.issuanceDate = vcOptions.issuanceDate || new Date().toISOString();
         this.suite = vcOptions.suite;
         this.didMethod = vcOptions.didMethod;
@@ -35,8 +35,8 @@ class Worker {
             const promises = vcData.map(({ credential, data }) => {
                 return new Promise(async (resolve) => {
                     try {
-                        let issuerPrivateKey = await this.issuer(job);
-                        let holderPublicKey = this.holder && (await this.holder(job));
+                        let issuerPrivateKey = await this.issuerLoader(job);
+                        let holderPublicKey = this.holderLoader && (await this.holderLoader(job));
                         const vc = await sd_vc_lib_1.verifiable.credential.create({
                             credential: credential,
                             holderPublicKey,

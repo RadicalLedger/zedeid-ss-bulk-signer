@@ -31,12 +31,12 @@ export interface VCOptions {
     /**
      * The private key of the issuer.
      */
-    issuerPrivateKey: IssuerPrivateKeyLoader;
+    issuerPrivateKeyLoader: IssuerPrivateKeyLoader;
 
     /**
      * The public key of the holder.
      */
-    holderPublicKey?: HolderPublicKeyLoader;
+    holderPublicKeyLoader?: HolderPublicKeyLoader;
 
     /**
      * The cryptographic suite used for signing the verifiable credential.
