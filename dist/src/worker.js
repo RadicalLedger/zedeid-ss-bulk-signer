@@ -35,10 +35,12 @@ class Worker {
             const promises = vcData.map(({ credential, data }) => {
                 return new Promise(async (resolve) => {
                     try {
+                        let issuerPrivateKey = await this.issuer(job);
+                        let holderPublicKey = this.holder && (await this.holder(job));
                         const vc = await sd_vc_lib_1.verifiable.credential.create({
                             credential: credential,
-                            holderPublicKey: this.holder,
-                            issuerPrivateKey: this.issuer,
+                            holderPublicKey,
+                            issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
                             documentLoader: this.documentLoader,
                             didMethod: this.didMethod,
