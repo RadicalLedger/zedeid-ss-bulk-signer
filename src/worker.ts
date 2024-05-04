@@ -51,8 +51,9 @@ export default class Worker {
     /**
      * Handles the processing of a job by signing the verifiable credentials.
      * @param job - The job to be processed.
+     * @returns A promise that resolves when the handler is done.
      */
-    public async workerHandler(job: Job) {
+    public async workerHandler(job: Job): Promise<void> {
         try {
             const vcData: VCLoaderData[] = await this.vcLoader(job);
 
@@ -93,5 +94,13 @@ export default class Worker {
      */
     public get(): BullMqWorker {
         return this.worker;
+    }
+
+    /**
+     * Closes the worker.
+     * @returns A promise that resolves when the worker is closed.
+     */
+    public close(): Promise<void> {
+        return this.worker.close();
     }
 }
