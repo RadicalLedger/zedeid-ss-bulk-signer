@@ -72,7 +72,7 @@ This worker class handles the signing of verifiable credentials using BullJs for
 -   `vcLoader`: The function used for loading the verifiable credentials.
 -   `documentLoader`: The document loader function for loading JSON-LD documents.
 -   `callback`: The callback function to handle the result of signing the verifiable credential.
-  
+
 ## Methods
 
 ### workerHandler
@@ -80,24 +80,28 @@ This worker class handles the signing of verifiable credentials using BullJs for
 This method handles the processing of a job by signing the verifiable credentials.
 
 **Parameters:**
-- `job`: The job to be processed.
-  
+
+-   `job`: The job to be processed.
+
 **Returns:**
-- A promise that resolves when the handler is done.
+
+-   A promise that resolves when the handler is done.
 
 ### get
 
 This method returns the BullMq worker instance.
 
 **Returns:**
-- The BullMq worker instance.
+
+-   The BullMq worker instance.
 
 ### close
 
 This method closes the worker and returns a promise that resolves when the worker is closed.
 
 **Returns:**
-- A promise that resolves when the worker is closed.
+
+-   A promise that resolves when the worker is closed.
 
 ```ts
 import { Worker } from 'zedeid-ss-bulk-signer';
