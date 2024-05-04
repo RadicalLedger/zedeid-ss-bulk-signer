@@ -28,6 +28,7 @@ class Worker {
     /**
      * Handles the processing of a job by signing the verifiable credentials.
      * @param job - The job to be processed.
+     * @returns A promise that resolves when the handler is done.
      */
     async workerHandler(job) {
         try {
@@ -64,6 +65,13 @@ class Worker {
      */
     get() {
         return this.worker;
+    }
+    /**
+     * Closes the worker.
+     * @returns A promise that resolves when the worker is closed.
+     */
+    close() {
+        return this.worker.close();
     }
 }
 exports.default = Worker;
