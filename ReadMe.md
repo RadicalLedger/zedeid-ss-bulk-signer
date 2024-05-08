@@ -114,7 +114,7 @@ const vcOptions = {
   didMethod: '...',        // DID method
   loader: async (job) => { ... }, // Function to load VC for signing
   documentLoader: async (uri) => { ... }, // Function to load referenced documents
-  callback: (err, data) => { ... }, // Callback for signed VCs or errors
+  callback: async (err, data) => { ... }, // Callback for signed VCs or errors
 };
 
 // Define the options for the worker
