@@ -27,4 +27,4 @@ export declare type HolderPublicKeyLoader = (job?: Job) => Promise<string>;
  * @param error - The error object, if any.
  * @param data - The callback data containing the error and signed verifiable credential, if available.
  */
-export declare type Callback = (error: any, data?: CallBackData) => void;
+export declare type Callback = (error: any, data?: CallBackData) => Promise<void>;

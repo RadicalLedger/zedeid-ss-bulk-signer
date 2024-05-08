@@ -54,9 +54,9 @@ class Worker {
                 });
             });
             const results = await Promise.all(promises);
-            this.callback(null, { job, results });
+            await this.callback(null, { job, results });
         } catch (error) {
-            this.callback(error);
+            await this.callback(error);
         }
     }
     /**
