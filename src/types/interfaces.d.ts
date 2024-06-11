@@ -39,11 +39,6 @@ export interface VCOptions {
     suite?: Suite;
 
     /**
-     * The DID method used for generating DIDs.
-     */
-    didMethod?: DIDMethods;
-
-    /**
      * The document loader used to load external documents.
      */
     documentLoader: DocumentLoader;

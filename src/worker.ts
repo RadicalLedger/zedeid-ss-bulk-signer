@@ -1,6 +1,5 @@
 import { DocumentLoader } from '@transmute/vc.js/dist/types/DocumentLoader';
 import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
-import { DIDMethods } from 'sd-vc-lib/dist/types/utils.type';
 import { Suite } from '@transmute/vc.js/dist/types/Suite';
 import { Callback, IssuerPrivateKeyLoader, VerifiableCredentialLoader } from './types/declrations';
 import { VCLoaderData, VCOptions } from './types/interfaces';
@@ -15,7 +14,6 @@ export default class Worker {
     private issuerLoader: IssuerPrivateKeyLoader;
     private issuanceDate: string;
     private suite: Suite;
-    private didMethod: DIDMethods;
     private vcLoader: VerifiableCredentialLoader;
     private documentLoader: DocumentLoader;
     private callback: Callback;
@@ -30,7 +28,6 @@ export default class Worker {
         this.issuerLoader = vcOptions.issuerPrivateKeyLoader;
         this.issuanceDate = vcOptions.issuanceDate || new Date().toISOString();
         this.suite = vcOptions.suite;
-        this.didMethod = vcOptions.didMethod;
         this.vcLoader = vcOptions.loader;
         this.documentLoader = vcOptions.documentLoader;
         this.callback = vcOptions.callback;
@@ -60,7 +57,6 @@ export default class Worker {
                             issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
                             documentLoader: this.documentLoader,
-                            didMethod: this.didMethod,
                             suite: this.suite
                         });
 
