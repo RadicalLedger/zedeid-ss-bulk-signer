@@ -8,7 +8,6 @@ export default class Worker {
     private issuerLoader;
     private issuanceDate;
     private suite;
-    private didMethod;
     private vcLoader;
     private documentLoader;
     private callback;

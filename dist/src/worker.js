@@ -16,7 +16,6 @@ class Worker {
         this.issuerLoader = vcOptions.issuerPrivateKeyLoader;
         this.issuanceDate = vcOptions.issuanceDate || new Date().toISOString();
         this.suite = vcOptions.suite;
-        this.didMethod = vcOptions.didMethod;
         this.vcLoader = vcOptions.loader;
         this.documentLoader = vcOptions.documentLoader;
         this.callback = vcOptions.callback;
@@ -41,7 +40,6 @@ class Worker {
                             issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
                             documentLoader: this.documentLoader,
-                            didMethod: this.didMethod,
                             suite: this.suite
                         });
                         resolve({ data, vc });
