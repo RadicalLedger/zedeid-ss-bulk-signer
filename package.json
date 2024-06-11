@@ -38,6 +38,6 @@
     },
     "dependencies": {
         "bullmq": "^5.7.4",
-        "sd-vc-lib": "https://github.com/RadicalLedger/zedeid-vcsd-lib#v2/master"
+        "sd-vc-lib": "https://github.com/RadicalLedger/zedeid-vcsd-lib#main"
     }
 }
