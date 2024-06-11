@@ -51,13 +51,12 @@ export default class Worker {
                 return new Promise(async (resolve) => {
                     try {
                         let issuerPrivateKey = await this.issuerLoader(job);
-
+                        console.log(this.suite);
                         const vc: VerifiableCredential = await verifiable.credential.create({
-                            credential: credential,
+                            credential,
                             issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
-                            documentLoader: this.documentLoader,
-                            suite: this.suite
+                            documentLoader: this.documentLoader
                         });
 
                         resolve({ data, vc });

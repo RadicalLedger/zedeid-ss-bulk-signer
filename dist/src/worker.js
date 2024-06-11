@@ -36,16 +36,8 @@ class Worker {
                     try {
                         let issuerPrivateKey = await this.issuerLoader(job);
                         console.log(this.suite);
-                        console.log(
-                            JSON.stringify({
-                                credential: credential,
-                                issuerPrivateKey,
-                                issuanceDate: this.issuanceDate,
-                                documentLoader: this.documentLoader
-                            })
-                        );
                         const vc = await sd_vc_lib_1.verifiable.credential.create({
-                            credential: credential,
+                            credential,
                             issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
                             documentLoader: this.documentLoader
