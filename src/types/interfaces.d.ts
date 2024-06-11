@@ -34,11 +34,6 @@ export interface VCOptions {
     issuerPrivateKeyLoader: IssuerPrivateKeyLoader;
 
     /**
-     * The public key of the holder.
-     */
-    holderPublicKeyLoader?: HolderPublicKeyLoader;
-
-    /**
      * The cryptographic suite used for signing the verifiable credential.
      */
     suite?: Suite;

@@ -2,12 +2,7 @@ import { DocumentLoader } from '@transmute/vc.js/dist/types/DocumentLoader';
 import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
 import { DIDMethods } from 'sd-vc-lib/dist/types/utils.type';
 import { Suite } from '@transmute/vc.js/dist/types/Suite';
-import {
-    Callback,
-    HolderPublicKeyLoader,
-    IssuerPrivateKeyLoader,
-    VerifiableCredentialLoader
-} from './types/declrations';
+import { Callback, IssuerPrivateKeyLoader, VerifiableCredentialLoader } from './types/declrations';
 import { VCLoaderData, VCOptions } from './types/interfaces';
 import { Worker as BullMqWorker, Job, WorkerOptions } from 'bullmq';
 import { verifiable } from 'sd-vc-lib';
@@ -18,7 +13,6 @@ import { verifiable } from 'sd-vc-lib';
 export default class Worker {
     private worker: BullMqWorker;
     private issuerLoader: IssuerPrivateKeyLoader;
-    private holderLoader: HolderPublicKeyLoader | undefined;
     private issuanceDate: string;
     private suite: Suite;
     private didMethod: DIDMethods;
@@ -34,7 +28,6 @@ export default class Worker {
      */
     constructor(name: string, vcOptions: VCOptions, workerOptions?: WorkerOptions) {
         this.issuerLoader = vcOptions.issuerPrivateKeyLoader;
-        this.holderLoader = vcOptions.holderPublicKeyLoader;
         this.issuanceDate = vcOptions.issuanceDate || new Date().toISOString();
         this.suite = vcOptions.suite;
         this.didMethod = vcOptions.didMethod;
@@ -61,11 +54,9 @@ export default class Worker {
                 return new Promise(async (resolve) => {
                     try {
                         let issuerPrivateKey = await this.issuerLoader(job);
-                        let holderPublicKey = this.holderLoader && (await this.holderLoader(job));
 
                         const vc: VerifiableCredential = await verifiable.credential.create({
                             credential: credential,
-                            holderPublicKey,
                             issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
                             documentLoader: this.documentLoader,

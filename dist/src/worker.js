@@ -14,7 +14,6 @@ class Worker {
      */
     constructor(name, vcOptions, workerOptions) {
         this.issuerLoader = vcOptions.issuerPrivateKeyLoader;
-        this.holderLoader = vcOptions.holderPublicKeyLoader;
         this.issuanceDate = vcOptions.issuanceDate || new Date().toISOString();
         this.suite = vcOptions.suite;
         this.didMethod = vcOptions.didMethod;
@@ -37,10 +36,8 @@ class Worker {
                 return new Promise(async (resolve) => {
                     try {
                         let issuerPrivateKey = await this.issuerLoader(job);
-                        let holderPublicKey = this.holderLoader && (await this.holderLoader(job));
                         const vc = await sd_vc_lib_1.verifiable.credential.create({
                             credential: credential,
-                            holderPublicKey,
                             issuerPrivateKey,
                             issuanceDate: this.issuanceDate,
                             documentLoader: this.documentLoader,
