@@ -4,7 +4,6 @@ import loader from './assets/loader';
 import documentLoader from './assets/document-loader';
 import callback from './assets/callback';
 import issuerPrivateKeyLoader from './assets/issuer-loader';
-import holderPublicKeyLoader from './assets/holder-loader';
 import { after } from 'lodash';
 import { Queue, QueueEvents } from 'bullmq';
 
@@ -44,8 +43,7 @@ describe('Bulk Verifiable Credentials Signing', () => {
                 loader,
                 documentLoader,
                 callback,
-                issuerPrivateKeyLoader,
-                holderPublicKeyLoader
+                issuerPrivateKeyLoader
             },
             {
                 connection: config.redisConnection,
